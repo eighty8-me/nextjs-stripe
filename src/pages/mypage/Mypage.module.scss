@@ -1,0 +1,20 @@
+.container {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: 240px 1fr;
+  grid-template-areas:
+    "side main";
+}
+
+.main {
+  grid-area: main;
+  padding: 24px 24px;
+}
+
+.mypage {
+}

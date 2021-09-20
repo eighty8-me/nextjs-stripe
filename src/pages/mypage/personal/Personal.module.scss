@@ -1,0 +1,92 @@
+.container {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: 240px 1fr;
+  grid-template-areas:
+    "side main";
+}
+
+.main {
+  grid-area: main;
+  padding: 24px 24px;
+}
+
+.personal {
+  &__form {
+    &__field {
+      display: flex;
+      margin-left: -8px;
+      margin-right: -8px;
+      padding: 8px 0;
+    }
+
+    &__label {
+      padding: 8px 8px;
+    }
+
+    &__label_caption {
+      display: block;
+      margin-left: 4px;
+      margin-bottom: 2px;
+    }
+
+    &__input {
+      font-size: 16px;
+      padding: 8px 8px;
+      border: 1px solid #cccccc;
+      border-radius: 5px;
+    }
+
+    &__input_name {
+      width: 180px;
+    }
+
+    &__input_phone {
+      width: 180px;
+    }
+
+    &__input_zip {
+      width: 100px;
+    }
+
+    &__input_state {
+      width: 110px;
+    }
+
+    &__input_city {
+      width: 180px;
+    }
+
+    &__input_town {
+      width: 320px;
+    }
+
+    &__input_line {
+      width: 320px;
+    }
+
+    &__button_field {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 16px 0;
+    }
+  }
+}
+
+.button {
+  border: none;
+  line-height: 1;
+  padding: 8px 12px;
+  border-radius: 5px;
+
+  &__primary {
+    background-color: #635bff;
+    color: #ffffff;
+  }
+}

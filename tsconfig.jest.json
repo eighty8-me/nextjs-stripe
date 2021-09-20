@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "module": "commonjs",
+    "isolatedModules": false,
+    "jsx": "react"
+  }
+}

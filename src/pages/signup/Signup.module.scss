@@ -1,0 +1,90 @@
+.container {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.main {
+  padding: 24px 24px;
+}
+
+.signup {
+  background-color: #efefef;
+  width: 420px;
+  margin: 0 auto;
+  padding: 24px 24px;
+  border-radius: 10px;
+
+  &__heading {
+    text-align: center;
+    margin: 0;
+    margin-bottom: 24px;
+  }
+
+  &__form {
+    &__field {
+      display: flex;
+      margin-left: -8px;
+      margin-right: -8px;
+      padding: 8px 0;
+    }
+
+    &__label {
+      width: 100%;
+      padding: 8px 8px;
+    }
+
+    &__label_caption {
+      display: block;
+      margin-left: 4px;
+      margin-bottom: 2px;
+    }
+
+    &__input {
+      font-size: 16px;
+      padding: 8px 8px;
+      border: 1px solid #cccccc;
+      border-radius: 5px;
+    }
+
+    &__input_email {
+      width: 100%;
+    }
+
+    &__input_password {
+      width: 100%;
+    }
+
+    &__input_subtext {
+      margin-left: 8px;
+    }
+
+    &__button_field {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 16px 0;
+    }
+  }
+}
+
+.button {
+  border: none;
+  line-height: 1;
+  padding: 8px 12px;
+  border-radius: 5px;
+
+  &__primary {
+    background-color: #635bff;
+    color: #ffffff;
+  }
+}
+
+
+.nav {
+  text-align: center;
+
+  &__login {
+    color: #0000ee;
+    text-align: center;
+  }
+}

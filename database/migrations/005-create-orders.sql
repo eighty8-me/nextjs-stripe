@@ -1,0 +1,12 @@
+-- Up
+CREATE TABLE orders (
+  id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  uuid VARCHAR(255) NOT NULL UNIQUE,
+  product_id INTEGER REFERENCES products(id) NOT NULL,
+  customer_id INTEGER REFERENCES customers(id) NOT NULL,
+  amout INTEGER NOT NULL,
+  created_at DATETIME NOT NULL
+);
+
+-- Down
+DROP TABLE orders;

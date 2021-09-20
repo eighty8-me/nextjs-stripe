@@ -1,0 +1,16 @@
+-- Up
+CREATE TABLE customers (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  uuid VARCHAR(255) NOT NULL UNIQUE,
+  first_name VARCHAR(255) NOT NULL,
+  last_name VARCHAR(255) NOT NULL,
+  phone VARCHAR(11) NOT NULL,
+  zip VARCHAR(7) NOT NULL,
+  state VARCHAR(10) NOT NULL,
+  city VARCHAR(30) NOT NULL,
+  town VARCHAR(255) NOT NULL,
+  line VARCHAR(255)
+);
+
+-- Down
+DROP TABLE customers;

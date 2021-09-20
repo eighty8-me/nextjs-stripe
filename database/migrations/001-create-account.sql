@@ -1,0 +1,11 @@
+-- Up
+CREATE TABLE accounts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  uuid VARCHAR(255) NOT NULL UNIQUE,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password VARCHAR(50) NOT NULL,
+  created_at DATETIME
+);
+
+-- Down
+DROP TABLE accounts;
