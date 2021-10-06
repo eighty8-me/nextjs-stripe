@@ -1,9 +1,9 @@
 import React from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 import styles from '@/pages/mypage/product/Product.module.scss';
 import { Side } from '@/components/layouts/side/Side';
-import axios from 'axios';
 
 export type FormDataType = {
   name: string;
@@ -44,7 +44,7 @@ const Product: NextPage = () => {
     if (!sessionStorage.getItem('uuid')) {
       router.push('/');
     }
-  }, []);
+  }, [router]);
 
   const createProduct = async (data: FormDataType): Promise<ProductType> => {
     const res = await axios.post<ApiResponseType>('/api/product/create', {
@@ -65,7 +65,7 @@ const Product: NextPage = () => {
     e.preventDefault();
     setLoading(true);
 
-    const res = await createProduct(formData);
+    void (await createProduct(formData));
 
     setFormData({ ...defaultFormData });
     setLoading(false);

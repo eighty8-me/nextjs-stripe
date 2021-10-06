@@ -4,7 +4,7 @@ CREATE TABLE orders (
   uuid VARCHAR(255) NOT NULL UNIQUE,
   product_id INTEGER REFERENCES products(id) NOT NULL,
   customer_id INTEGER REFERENCES customers(id) NOT NULL,
-  amout INTEGER NOT NULL,
+  amount INTEGER NOT NULL,
   created_at DATETIME NOT NULL
 );
 

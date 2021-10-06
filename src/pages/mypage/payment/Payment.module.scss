@@ -1,0 +1,38 @@
+.container {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: 240px 1fr;
+  grid-template-areas:
+    "side main";
+}
+
+.main {
+  grid-area: main;
+  padding: 24px 24px;
+}
+
+.payment {
+  &__button_field {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 16px 0;
+  }
+}
+
+.button {
+  border: none;
+  line-height: 1;
+  padding: 8px 12px;
+  border-radius: 5px;
+
+  &__primary {
+    background-color: #635bff;
+    color: #ffffff;
+  }
+}

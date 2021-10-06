@@ -8,7 +8,9 @@ export const Side: React.FC = () => {
 
   const handleClickLogout = () => {
     console.log('*** session clear ***');
+
     sessionStorage.removeItem('uuid');
+    sessionStorage.removeItem('sca_id');
     router.push('/');
   };
 

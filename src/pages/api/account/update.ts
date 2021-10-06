@@ -2,25 +2,24 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import path from 'path';
 import sqlite3 from 'sqlite3';
 import { open } from 'sqlite';
-import type { FormDataType } from '@/pages/mypage/personal/index';
+import dayjs from 'dayjs';
 
 type RequestBodyType = {
-  seller: FormDataType;
   uuid: string;
+  stripeConnectedAccountId: string;
 };
 
 export default async (
   req: NextApiRequest,
   res: NextApiResponse,
 ): Promise<void> => {
-  if (req.method !== 'POST') {
+  if (req.method !== 'PUT') {
     res.status(405).json({
       message: 'Method Not Allowed.',
     });
   }
 
   const body = req.body as RequestBodyType;
-  const data = { ...body.seller, uuid: body.uuid };
   const databaseDir = path.resolve('./database', 'data');
 
   try {
@@ -30,31 +29,17 @@ export default async (
     });
 
     const result = await db.run(
-      `INSERT INTO users 
-        (uuid, first_name, last_name, phone, zip, state, city, town, line)
-      VALUES
-        (:uuid, :first_name, :last_name, :phone, :zip, :state, :city, :town, :line)
-      ON CONFLICT(uuid)
-      DO UPDATE
+      `UPDATE
+        accounts 
       SET
-        uuid=:uuid,
-        first_name=:first_name,
-        last_name=:last_name,
-        zip=:zip,
-        state=:state,
-        city=:city,
-        town=:town,
-        line=:line`,
+        stripe_connected_account_id = :stripe_connected_account_id,
+        updated_at = :updated_at
+      WHERE
+        uuid = :uuid`,
       {
-        ':uuid': data.uuid,
-        ':first_name': data.firstName,
-        ':last_name': data.lastName,
-        ':phone': data.phone,
-        ':zip': data.zip,
-        ':state': data.state,
-        ':city': data.city,
-        ':town': data.town,
-        ':line': data.line,
+        ':stripe_connected_account_id': body.stripeConnectedAccountId,
+        ':updated_at': dayjs().format('YYYY-MM-DD hh:mm:ss'),
+        ':uuid': body.uuid,
       },
     );
 
@@ -71,7 +56,6 @@ export default async (
 
     res.json({
       status: 200,
-      data,
     });
   } catch (err) {
     console.log('*** DB Error ***', err);

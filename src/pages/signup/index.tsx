@@ -1,9 +1,9 @@
 import React from 'react';
 import { NextPage } from 'next';
-import axios from 'axios';
-import styles from '@/pages/signup/Signup.module.scss';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import styles from '@/pages/signup/Signup.module.scss';
 
 export type FormDataType = {
   email: string;
@@ -15,7 +15,7 @@ export type AccountType = {
   uuid: string;
   email: string;
   password: string;
-  created_at: string;
+  createdAt: string;
 };
 
 export type ApiResponseType = {

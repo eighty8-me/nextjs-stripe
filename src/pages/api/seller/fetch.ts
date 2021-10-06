@@ -2,11 +2,9 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import path from 'path';
 import sqlite3 from 'sqlite3';
 import { open } from 'sqlite';
-import dayjs from 'dayjs';
-import type { FormDataType } from '@/pages/mypage/product/index';
+import type { SellerInfoType } from '@/pages/mypage/payment/index';
 
-type RequestBodyType = {
-  product: FormDataType;
+type RequestQueryType = {
   uuid: string;
 };
 
@@ -14,14 +12,13 @@ export default async (
   req: NextApiRequest,
   res: NextApiResponse,
 ): Promise<void> => {
-  if (req.method !== 'POST') {
+  if (req.method !== 'GET') {
     res.status(405).json({
       message: 'Method Not Allowed.',
     });
   }
 
-  const body = req.body as RequestBodyType;
-  const data = { ...body.product, uuid: body.uuid };
+  const { uuid } = req.query as RequestQueryType;
   const databaseDir = path.resolve('./database', 'data');
 
   try {
@@ -30,24 +27,37 @@ export default async (
       driver: sqlite3.Database,
     });
 
-    const result = await db.run(
-      `INSERT INTO products 
-        (uuid, name, price, created_at)
-      VALUES
-        (:uuid, :name, :price, :created_at)`,
+    const result = await db.get<SellerInfoType>(
+      `SELECT
+        users.id,
+        users.uuid,
+        users.first_name as firstName,
+        users.last_name as lastName,
+        users.phone,
+        users.zip,
+        users.state,
+        users.city,
+        users.town,
+        users.line,
+        accounts.email
+      FROM
+        users
+      INNER JOIN
+        accounts
+      ON
+        users.uuid = accounts.uuid
+      WHERE
+        users.uuid = :uuid`,
       {
-        ':uuid': data.uuid,
-        ':name': data.name,
-        ':price': data.price,
-        ':created_at': dayjs().format('YYYY-MM-DD hh:mm:ss'),
+        ':uuid': uuid,
       },
     );
 
     console.log('*** DB result ***', result);
 
-    if (result.lastID === 0 && result.changes === 0) {
+    if (!result) {
       res.json({
-        status: 500,
+        status: 401,
         data: result,
       });
 
@@ -56,7 +66,7 @@ export default async (
 
     res.json({
       status: 200,
-      data,
+      data: result,
     });
   } catch (err) {
     console.log('*** DB Error ***', err);

@@ -1,6 +1,6 @@
 -- Up
-CREATE TABLE customers (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
   uuid VARCHAR(255) NOT NULL UNIQUE,
   first_name VARCHAR(255) NOT NULL,
   last_name VARCHAR(255) NOT NULL,
@@ -13,4 +13,4 @@ CREATE TABLE customers (
 );
 
 -- Down
-DROP TABLE customers;
+DROP TABLE sellers;

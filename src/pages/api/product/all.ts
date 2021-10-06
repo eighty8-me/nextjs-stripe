@@ -2,24 +2,18 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import path from 'path';
 import sqlite3 from 'sqlite3';
 import { open } from 'sqlite';
-import type { FormDataType, AccountType } from '@/pages/login/index';
-
-type RequestBodyType = {
-  account: FormDataType;
-};
+import type { ProductType } from '@/pages/product/index';
 
 export default async (
   req: NextApiRequest,
   res: NextApiResponse,
 ): Promise<void> => {
-  if (req.method !== 'POST') {
+  if (req.method !== 'GET') {
     res.status(405).json({
       message: 'Method Not Allowed.',
     });
   }
 
-  const body = req.body as RequestBodyType;
-  const data = body.account;
   const databaseDir = path.resolve('./database', 'data');
 
   try {
@@ -28,31 +22,22 @@ export default async (
       driver: sqlite3.Database,
     });
 
-    const result = await db.get<AccountType>(
+    const results = await db.all<ProductType[]>(
       `SELECT
-        id,
+        id as productId,
         uuid,
-        email,
-        stripe_connected_account_id as stripeConnectedAccountId,
-        stripe_customer_id as stripeCustomerId
+        name as productName,
+        price as productPrice
       FROM
-        accounts
-      WHERE
-        email = :email
-      AND
-        password = :password`,
-      {
-        ':email': data.email,
-        ':password': data.password,
-      },
+        products`,
     );
 
-    console.log('*** Login DB result ***', result);
+    console.log('*** DB results ***', results);
 
-    if (!result) {
+    if (!results) {
       res.json({
         status: 401,
-        data: result,
+        data: results,
       });
 
       return;
@@ -60,7 +45,7 @@ export default async (
 
     res.json({
       status: 200,
-      data: result,
+      data: results,
     });
   } catch (err) {
     console.log('*** DB Error ***', err);

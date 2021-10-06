@@ -1,9 +1,9 @@
 import React from 'react';
 import { NextPage } from 'next';
-import axios from 'axios';
-import styles from '@/pages/login/Login.module.scss';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import styles from '@/pages/login/Login.module.scss';
 
 export type FormDataType = {
   email: string;
@@ -14,8 +14,9 @@ export type AccountType = {
   id: number;
   uuid: string;
   email: string;
-  password: string;
-  created_at: string;
+  stripeConnectedAccountId: string;
+  stripeCustomerId: string | null;
+  createdAt: string;
 };
 
 export type ApiResponseType = {
@@ -53,6 +54,7 @@ const Login: NextPage = () => {
     }
 
     sessionStorage.setItem('uuid', res.data.data.uuid);
+    sessionStorage.setItem('sca_id', res.data.data.stripeConnectedAccountId);
 
     router.push('/mypage/');
   };

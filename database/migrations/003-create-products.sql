@@ -3,7 +3,8 @@ CREATE TABLE products (
   id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
   uuid VARCHAR(255) REFERENCES accounts(uuid) NOT NULL,
   name VARCHAR(255) NOT NULL,
-  price INTEGER NOT NULL
+  price INTEGER NOT NULL,
+  created_at DATETIME
 );
 
 -- Down
