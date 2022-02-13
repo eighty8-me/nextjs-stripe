@@ -1,4 +1,12 @@
-// command: node --loader ts-node/esm database/setup.ts
+// NOTE:
+// add to package.json
+// -------------------------------------
+// {
+//   "type": "module",
+// }
+// -------------------------------------
+//
+// exec command: node --loader ts-node/esm database/setup.ts
 
 import { open } from 'sqlite';
 import sqlite3 from 'sqlite3';
