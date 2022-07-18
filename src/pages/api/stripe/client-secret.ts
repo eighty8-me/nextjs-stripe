@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { stripe } from '@/libs/stripe';
 import type { StripeApiError } from '@/libs/stripe';
 
-type RequestQueryType = {
+type RequestBodyType = {
   stripeConnectedAccountId: string;
 };
 
@@ -10,13 +10,13 @@ export default async (
   req: NextApiRequest,
   res: NextApiResponse,
 ): Promise<void> => {
-  if (req.method !== 'GET') {
+  if (req.method !== 'POST') {
     res.status(405).json({
       message: 'Method Not Allowed.',
     });
   }
 
-  const { stripeConnectedAccountId } = req.query as RequestQueryType;
+  const { stripeConnectedAccountId } = req.body as RequestBodyType;
 
   try {
     const paymentIntent = await stripe.paymentIntents.create({

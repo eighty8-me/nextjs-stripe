@@ -64,13 +64,11 @@ const ProductDetail: NextPage = () => {
   }, [router.query.id]);
 
   const handleClickCheckout = async (stripeConnectedAccountId: string) => {
-    const { data } = await axios.get<ClientSecretResponseType>(
+    const { data } = await axios.post<ClientSecretResponseType>(
       '/api/stripe/client-secret',
       {
-        params: {
-          stripeConnectedAccountId,
-        },
-      },
+        stripeConnectedAccountId,
+      }
     );
 
     setClientSecret(data.clientSecret || '');

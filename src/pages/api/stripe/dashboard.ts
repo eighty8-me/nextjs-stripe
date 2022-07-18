@@ -20,7 +20,7 @@ export default async (
     const loginLink = await stripe.accounts.createLoginLink(
       body.stripeConnectedAccountId,
       {
-        redirect_url: origin,
+        redirect_url: origin, // ダッシュボードからサイトに戻るためのURLを指定
       },
     );
 

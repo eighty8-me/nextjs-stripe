@@ -29,6 +29,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   let event;
 
   try {
+    console.log('webhookSecret', webhookSecret);
     event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
     console.log('stripeEvent', event);
   } catch (err: unknown) {
@@ -49,6 +50,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       console.log('*** succeeded paymentIntent ***', paymentIntent);
       break;
     default:
-      console.log(`Unhandled event type ${event.type}`);
+      console.log(`*** Unhandled event type ${event.type} ***`);
   }
+
+  res.status(200).send('*** succeed ***');
 };

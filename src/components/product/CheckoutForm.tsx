@@ -45,6 +45,9 @@ export const CheckoutForm: React.FC<CheckoutFormPropsType> = (props) => {
 
     console.log('*** props.clientSecret ***', props.clientSecret);
 
+    // FYI: https://stripe.com/docs/js/payment_methods/create_payment_method
+    // In most integrations, you will not need to use this method. Instead, use methods like stripe.confirmCardPayment, which will automatically create a PaymentMethod when you confirm a PaymentIntent.
+    // ほとんどの統合では、この方法を使用する必要はありません。代わりに、stripe.confirmCardPaymentなどのメソッドを使用してください。これにより、PaymentIntentを確認するとPaymentMethodが自動的に作成されます。
     const result = await stripe.confirmCardPayment(props.clientSecret, {
       payment_method: {
         card: cardElement,
@@ -60,7 +63,7 @@ export const CheckoutForm: React.FC<CheckoutFormPropsType> = (props) => {
     }
 
     if (result.paymentIntent.status === 'succeeded') {
-      console.log('Payment Succeed');
+      console.log('*** Payment Succeed ***');
     }
   };
 
